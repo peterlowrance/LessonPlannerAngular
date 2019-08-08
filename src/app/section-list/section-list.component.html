@@ -1,0 +1,57 @@
+<div class="card bg-dark">
+  <div class="card-body">
+    <h3 class="text-light">Edit
+      <label class="switch">
+        <input type="checkbox" [(ngModel)]="edit">
+        <span class="slider round"></span>
+      </label>
+    </h3>
+    <table class="table table-dark text-white">
+      <tbody class="bg-dark text-center">
+      <tr class="list-group" *ngFor="let section of sections">
+        <th scope="col">
+          <div class="row text-centered">
+            <div class="col-md-2">
+              <h4 class="py-1">{{ section.name }}</h4>
+            </div>
+            <div *ngIf="edit" [@barAnimation] class="col-md-9">
+              <form (ngSubmit)="addProject(section.sectionID)" #myForm="ngForm">
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="newProjects.get(section.sectionID).name" class="form-control"
+                         id="name2" name="name" placeholder="Enter new project name" required #name="ngModel">
+                </div>
+              </form>
+            </div>
+            <div *ngIf="edit" class="col-md-1">
+              <button type="button" [@enterAnimation] (click)="deleteSection(section)" class="btn btn-danger">&times;</button>
+            </div>
+          </div>
+      <tr>
+        <li *ngFor="let project of projects.get(section.sectionID)" class="list-inline-item py-1">
+          <a (click)="goToProject(project)" class="btn btn-info">{{project.name}}</a>
+          <button *ngIf="edit" [@enterAnimation] type="button" (click)="deleteProject(project, section.sectionID)" class="btn btn-danger">&times;</button>
+        </li>
+      </tr>
+      </th>
+      </tr>
+      <tr class="list-group" *ngIf="edit">
+        <th scope="col">
+          <div class="row text-centered">
+            <div class="col-md-2">
+              <h4 class="py-1">Add Section:</h4>
+            </div>
+            <div class="col-md-10">
+              <form [@barAnimation] (ngSubmit)="addSection()" #myForm="ngForm">
+                <div class="form-group">
+                  <input type="text" [(ngModel)]="section.name" class="form-control" id="name" name="name"
+                         placeholder="Enter new section name" required #name="ngModel">
+                </div>
+              </form>
+            </div>
+          </div>
+        </th>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

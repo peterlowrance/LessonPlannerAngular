@@ -1,0 +1,71 @@
+<div class="card bg-dark my-5">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-2">
+        <h3 class="card-title text-center text-white py-1">Edit
+          <label class="switch"><input type="checkbox" [(ngModel)]="edit"><span
+            class="slider round"></span></label>
+        </h3>
+      </div>
+      <div class="col-md-8">
+        <form (input)="updateName()" #myForm="ngForm" *ngIf="edit && project" [@barAnimation]>
+          <div class="form-group">
+            <input type="text" [(ngModel)]="project.name"
+                   class="form-control" id="pName" name="pName" placeholder="Enter project name"
+                   required #name="ngModel">
+          </div>
+        </form>
+        <h2 class="card-title text-center text-white py-1" *ngIf="!edit && project">{{ project.name }}</h2>
+      </div>
+    </div>
+    <div class="card-title text-center" *ngIf="project">
+      <form [formGroup]="dateForm" *ngIf="edit" [@barAnimation]>
+        <input class="form-control-sm" type="date" formControlName="dateInput">
+      </form>
+      <h3 class="text-white" *ngIf="!edit">{{project.date}}</h3>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item bg-dark text-white py-3" *ngIf="(members && members.length) || edit">
+        <h3>Members:</h3>
+        <div *ngFor="let member of members">
+          <h5>{{ member.name }} - {{ member.role}}
+            <button *ngIf="edit" [@enterAnimation] type="button" (click)="deleteMember(member)" class="btn-sm btn-danger">&times;
+            </button>
+          </h5>
+        </div>
+        <form (ngSubmit)="addMember(newMember)" *ngIf="edit">
+          <input [@barAnimation] class="form-control-sm" type="text" [(ngModel)]="newMember.name" name="name"
+                 placeholder="Member name" required #name="ngModel"> -
+          <input [@barAnimation] class="form-control-sm" type="text" [(ngModel)]="newMember.role" name="role"
+                 placeholder="Member role" required #name="ngModel">
+          <button [@enterAnimation] class="btn-sm btn-info">Add Member</button>
+        </form>
+      </li>
+      <li class="list-group-item bg-dark text-white py-3" *ngFor="let descriptor of descriptors">
+        <h3>{{ descriptor.header }} <button *ngIf="edit" [@enterAnimation] type="button" (click)="deleteDescriptor(descriptor)" class="btn-sm btn-danger">&times;</button></h3>
+        <div *ngIf="!edit">{{ descriptor.text }}</div>
+        <form (input)="updateInfo(descriptor)" #myForm="ngForm" *ngIf="edit">
+          <div class="form-group">
+            <input type="text" [(ngModel)]="descriptor.text"
+                   class="form-control" id="info" name="info" placeholder="Enter project info"
+                   required #name="ngModel">
+          </div>
+        </form>
+      </li>
+      <li class="list-group-item bg-dark text-white py-3" *ngIf="edit">
+        <div class="row text-centered">
+          <div class="col-md-2"><h4 class="py-1">Add Paragraph:</h4></div>
+          <div class="col-md-10">
+            <form [@barAnimation] (ngSubmit)="addDescriptor()" #myForm="ngForm">
+              <div class="form-group">
+                <input type="text" [(ngModel)]="descriptor.header"
+                       class="form-control" id="desc" name="desc" placeholder="Enter project description header"
+                       required #name="ngModel">
+              </div>
+            </form>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
