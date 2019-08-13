@@ -49,7 +49,7 @@ export class SectionListComponent implements OnInit {
 
   edit: boolean;
 
-  @ViewChild('myForm') myForm;
+  @ViewChild('myForm', { static: false }) myForm;
 
   constructor(private sectionService: SectionService, private projectService: ProjectService, private router: Router) {
     this.projects = new Map();
