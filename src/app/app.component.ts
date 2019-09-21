@@ -9,6 +9,6 @@ export class AppComponent {
   title: string;
 
   constructor() {
-    this.title = 'Project Recorder using Angular and Spring';
+    this.title = 'Lesson Planner using Angular and Spring';
   }
 }
