@@ -27,13 +27,15 @@
               </button>
             </div>
           </div>
-      <tr>
-        <li *ngFor="let project of projects.get(section.sectionID)" class="list-inline-item py-1">
-          <a (click)="goToProject(project)" class="btn btn-info">{{project.name}}</a>
-          <button *ngIf="edit" [@enterAnimation] type="button" (click)="deleteProject(project, section.sectionID)"
-                  class="btn btn-danger">&times;
-          </button>
-        </li>
+        </th>
+        <ul class="list-inline">
+          <li *ngFor="let project of projects.get(section.sectionID)" class="list-inline-item p-1">
+            <a (click)="goToProject(project)" class="btn btn-info">{{project.name}}</a>
+            <button *ngIf="edit" [@enterAnimation] type="button" (click)="deleteProject(project, section.sectionID)"
+                    class="btn btn-danger">&times;
+            </button>
+          </li>
+        </ul>
       </tr>
       <tr class="list-group" *ngIf="edit">
         <th scope="col">

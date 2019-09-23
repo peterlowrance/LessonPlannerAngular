@@ -109,6 +109,7 @@ export class SectionListComponent implements OnInit {
   }
 
   addProject(sectionID: number) {
+    console.log(this.newProjects.get(sectionID).name);
     if (this.newProjects.get(sectionID) && this.newProjects.get(sectionID).name) {
       this.newProjects.get(sectionID).sectionID = sectionID;
       this.projectService.save(this.newProjects.get(sectionID)).subscribe(data => this.projects.get(sectionID).push(data));
