@@ -25,7 +25,7 @@
       <h3 class="text-white" *ngIf="!edit">{{project.date}}</h3>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item bg-dark text-white py-3" *ngIf="(members && members.length) || edit">
+      <!--<li class="list-group-item bg-dark text-white py-3" *ngIf="(members && members.length) || edit">
         <h3>Members:</h3>
         <div *ngFor="let member of members">
           <h5>{{ member.name }} - {{ member.role}}
@@ -40,26 +40,36 @@
                  placeholder="Member role" required #name="ngModel">
           <button [@enterAnimation] class="btn-sm btn-info">Add Member</button>
         </form>
-      </li>
+      </li>-->
       <li class="list-group-item bg-dark text-white py-3" *ngFor="let descriptor of descriptors">
-        <h3>{{ descriptor.header }} <button *ngIf="edit" [@enterAnimation] type="button" (click)="deleteDescriptor(descriptor)" class="btn-sm btn-danger">&times;</button></h3>
-        <div *ngIf="!edit">{{ descriptor.text }}</div>
-        <form (input)="updateInfo(descriptor)" #myForm="ngForm" *ngIf="edit">
-          <div class="form-group">
-            <input type="text" [(ngModel)]="descriptor.text"
-                   class="form-control" id="info" name="info" placeholder="Enter project info"
-                   required #name="ngModel">
-          </div>
-        </form>
+        <div *ngIf="descriptor.bigHeader">
+          <h3>{{ descriptor.header }}<button *ngIf="edit"[@enterAnimation] type="button" (click)="toggleSize(descriptor)" class="btn-sm btn-light mx-2">Smaller</button><button *ngIf="edit" [@enterAnimation] type="button" (click)="deleteDescriptor(descriptor)" class="btn-sm btn-danger">&times;</button></h3>
+          <div *ngIf="!edit">{{ descriptor.text }}</div>
+          <form (input)="updateInfo(descriptor)" #myForm="ngForm" *ngIf="edit">
+            <div class="form-group">
+              <textarea type="text" [(ngModel)]="descriptor.text" class="form-control" id="infoLarge" name="info" placeholder="Enter paragraph text" rows="3" required #name="ngModel"></textarea>
+            </div>
+          </form>
+        </div>
+        <!--Small header descriptor-->
+        <div *ngIf="!descriptor.bigHeader" class="pl-3">
+          <h5>{{ descriptor.header }}<button *ngIf="edit"[@enterAnimation] type="button" (click)="toggleSize(descriptor)" class="btn-sm btn-light mx-2">Larger</button><button *ngIf="edit" [@enterAnimation] type="button" (click)="deleteDescriptor(descriptor)" class="btn-sm btn-danger">&times;</button></h5>
+          <div *ngIf="!edit">{{ descriptor.text }}</div>
+          <form (input)="updateInfo(descriptor)" #myForm="ngForm" *ngIf="edit">
+            <div class="form-group">
+              <textarea type="text" [(ngModel)]="descriptor.text" class="form-control" id="infoSmall" name="info" placeholder="Enter paragraph text" rows="3" required #name="ngModel"></textarea>
+            </div>
+          </form>
+        </div>
       </li>
       <li class="list-group-item bg-dark text-white py-3" *ngIf="edit">
         <div class="row text-centered">
-          <div class="col-md-2"><h4 class="py-1">Add Paragraph:</h4></div>
-          <div class="col-md-10">
+          <div class="col-sm-2"><h4 class="py-1">Add Section:</h4></div>
+          <div class="col-sm-10">
             <form [@barAnimation] (ngSubmit)="addDescriptor()" #myForm="ngForm">
               <div class="form-group">
                 <input type="text" [(ngModel)]="descriptor.header"
-                       class="form-control" id="desc" name="desc" placeholder="Enter project description header"
+                       class="form-control" id="desc" name="desc" placeholder="Enter section header"
                        required #name="ngModel">
               </div>
             </form>

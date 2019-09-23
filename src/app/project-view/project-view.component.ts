@@ -160,4 +160,10 @@ export class ProjectViewComponent implements OnInit {
     this.project.date = this.unformatDate(this.project.date);
     this.projectService.update(this.project).subscribe();
   }
+
+  toggleSize(descriptor: Descriptor) {
+    descriptor.projectID = this.descriptor.projectID;
+    descriptor.bigHeader = !descriptor.bigHeader;
+    this.descriptorService.update(descriptor).subscribe();
+  }
 }
